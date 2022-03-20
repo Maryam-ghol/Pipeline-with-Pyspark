@@ -1,0 +1,23 @@
+{"namespace": "example.avro",
+ "type": "record",
+ "name": "User",
+ "fields": [
+     {"name": "VendorID", "type": "string"},
+     {"name": "tpep_pickup_datetime",  "type": "string"},
+     {"name": "tpep_dropoff_datetime", "type": "string"},
+     {"name": "passenger_count", "type": "string"},
+     {"name": "trip_distance",  "type": "string"},
+     {"name": "RatecodeID",  "type": "string"},
+     {"name": "store_and_fwd_flag", "type": "string"},
+     {"name": "PULocationID", "type": "string"},
+     {"name": "DOLocationID",  "type": "string"},
+     {"name": "payment_type", "type": "string"},
+     {"name": "fare_amount", "type": "string"},
+     {"name": "extra",  "type": "string"},
+     {"name": "mta_tax", "type": "string"},
+     {"name": "tip_amount", "type": "string"},
+     {"name": "tolls_amount",  "type": "string"},
+     {"name": "improvement_surcharge", "type": "string"},
+     {"name": "total_amount",  "type": "string"},
+     {"name": "congestion_surcharge",  "type": "string"}]
+} 

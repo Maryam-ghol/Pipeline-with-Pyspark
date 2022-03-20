@@ -1,0 +1,10 @@
+{"namespace": "example.avro",
+ "type": "record",
+ "name": "User",
+ "fields": [
+     {"name": "VendorID", "type": "string"},
+     {"name": "tpep_pickup_datetime",  "type": "string"},
+     {"name": "tpep_dropoff_datetime", "type": "string"},
+     {"name": "passenger_count", "type": "string"},
+     {"name": "trip_distance",  "type": "string"}]
+} 
