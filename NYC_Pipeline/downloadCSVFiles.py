@@ -19,9 +19,9 @@ def downlodFileFromURL(download_url,fileName):
     
 
 if __name__ == "__main__":
-    range_of_years= range(date.today().year-2,date.today().year-1)
+    range_of_years= range(date.today().year-2,date.today().year)
     for yearData in range_of_years:
-        for month_of_year in range(1,2):
+        for month_of_year in range(1,13):
             for cabType in ('green','yellow'):
                 url=geturlByYearNMonth(yearData,month_of_year,cabType)
                 fileName=cabType+'_tripdata_'+str(yearData)+'-'+str(month_of_year)

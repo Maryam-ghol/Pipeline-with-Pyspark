@@ -11,10 +11,8 @@ def read_NYC_data(path):
         fieldsT=[]
         fieldsT=data.readline()
         NYCRecord = namedtuple('NYCRecord', fieldsT)
-        print(fieldsT)
         reader = csv.reader(data, delimiter = ",")
         for row in map(NYCRecord._make, reader):
-            print(row)
             yield row
 
 
@@ -25,11 +23,10 @@ def parse_schema(path):
 
 def serialize_records(records, outpath,schemaPath):
     schema = parse_schema(schemaPath)
-    with open(outpath, 'wb') as out:
+    with open(outpath, 'w') as out:
         writer = DataFileWriter(out, DatumWriter(), schema)
         for record in records:
             record = dict((f, getattr(record, f)) for f in record._fields)
-            print('write')
             print(record)
             writer.append(record)
         writer.close()
