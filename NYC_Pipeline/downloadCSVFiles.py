@@ -1,5 +1,6 @@
 import urllib.request
 from datetime import date
+from os.path import exists
 
 
 def geturlByYearNMonth(year,month,type):
@@ -12,14 +13,15 @@ def geturlByYearNMonth(year,month,type):
 def downlodFileFromURL(download_url,fileName):
     print(download_url)
     print(fileName)
-    response = urllib.request.urlopen(download_url)    
-    file = open('.\\NYCfiles\\'+fileName + ".csv", 'wb')
-    file.write(response.read())
-    file.close()
+    if(not exists('.\\NYCfiles\\'+fileName + ".csv")):
+        response = urllib.request.urlopen(download_url)    
+        file = open('.\\NYCfiles\\'+fileName + ".csv", 'wb')
+        file.write(response.read())
+        file.close()
     
 
 if __name__ == "__main__":
-    range_of_years= range(date.today().year-2,date.today().year)
+    range_of_years= range(date.today().year-3,date.today().year)
     for yearData in range_of_years:
         for month_of_year in range(1,13):
             for cabType in ('green','yellow'):
