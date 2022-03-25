@@ -1,4 +1,5 @@
 from asyncio.windows_events import NULL
+from fileinput import filename
 import pyspark
 from pyspark.sql import SparkSession, Window
 import pyspark.sql.functions as f
@@ -15,7 +16,7 @@ def ExtractEntityFromCSVFile(spark, filename):
       df = spark.read.csv(filename, header = True)
       return df
 
-def DimNYC(spark) :
+def myNYC(spark) :
       rangeYears= range(date.today().year-3,date.today().year)
       print(rangeYears)
       cabTypes=['yellow','green']
@@ -27,17 +28,20 @@ def DimNYC(spark) :
                 fileName=cabType+'_tripdata_'+str(yearData)+'-'+str(monthYear)
                 csvfile=FilePath+fileName+'.csv'
                 if (cabType=='yellow' and exists(csvfile)):
-                  Yellowdfs.append(ExtractEntityFromCSVFile(spark,csvfile))
+                  Yellowdf=ExtractEntityFromCSVFile(spark,csvfile)
+                  myYellowNYC=TransformNYC(spark,Yellowdf)
+                  LoadNYC(myYellowNYC,fileName)
                 elif (cabType=='green' and exists(csvfile)):
-                  Greendfs.append(ExtractEntityFromCSVFile(spark,csvfile))
+                  Greendf=ExtractEntityFromCSVFile(spark,csvfile)
+                  myGreenNYC=TransformNYC(spark,Greendf)
+                  LoadNYC(myGreenNYC,fileName)
 
 
-      YellowAlldf= reduce(DataFrame.unionAll, Yellowdfs)
-      GreenAlldf= reduce(DataFrame.unionAll, Greendfs)
-      dimYellowNYC=TransformNYC(spark,YellowAlldf)
-      dimGreenNYC=TransformNYC(spark,GreenAlldf)
-      LoadNYC(dimYellowNYC,outFile='Yellow')
-      LoadNYC(dimGreenNYC,outFile='Green')
+     
+      
+      
+
+      
 
                
 
@@ -53,8 +57,8 @@ def TransformNYC(spark, dfNYC):
             '''
       return spark.sql(query)
 
-def LoadNYC(dimNYC,outFile):
-      WriteDataframeToParquet(dimNYC, outFile)
+def LoadNYC(myNYC,outFile):
+      WriteDataframeToParquet(myNYC, outFile)
 
 
 
@@ -63,7 +67,7 @@ if __name__ == "__main__":
        .master("local") \
        .appName("parquet_example") \
        .getOrCreate()
-      DimNYC (spark)
+      myNYC (spark)
                 
       spark.stop()
                 
